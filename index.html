@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KOVEO × BGI GROUP — Ғылым негізіндегі сұлулық технологиясы</title>
+<meta name="description" content="KOVEO — BGI Group стратегиялық серіктесі. Ғылыми негіздегі сұлулық технологиясы, кәсіби косметика және бизнес мүмкіндігі.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-0:#0c0815;
+  --bg-1:#150d24;
+  --bg-2:#1d1333;
+  --purple-900:#2c1654;
+  --purple-700:#5b2e91;
+  --purple-500:#8b5fbf;
+  --lavender:#cdb9ee;
+  --ink-100:#f7f3fb;
+  --ink-300:#c7bdda;
+  --ink-500:#9a8db6;
+  --gold-300:#f3d27a;
+  --gold-500:#e7b748;
+  --gold-700:#b8862e;
+  --glass-bg:rgba(255,255,255,.055);
+  --glass-bg-strong:rgba(255,255,255,.09);
+  --glass-border:rgba(255,255,255,.14);
+  --radius-lg:28px;
+  --radius-md:18px;
+  --ease:cubic-bezier(.16,.84,.44,1);
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg-0);
+  color:var(--ink-100);
+  font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--gold-500);color:#1d1333;}
+
+/* ---------- background atmosphere ---------- */
+.bg-field{position:fixed;inset:0;z-index:0;overflow:hidden;background:
+   radial-gradient(circle at 18% 8%, var(--purple-900) 0%, transparent 55%),
+   radial-gradient(circle at 85% 92%, #3a1c5e 0%, transparent 50%),
+   linear-gradient(165deg,var(--bg-0) 0%,var(--bg-1) 45%,var(--bg-2) 100%);
+}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;mix-blend-mode:screen;}
+.blob-a{width:48vw;height:48vw;top:-12vw;left:-14vw;background:radial-gradient(circle,#7c3fb0,transparent 70%);animation:float1 26s ease-in-out infinite;}
+.blob-b{width:40vw;height:40vw;bottom:-10vw;right:-10vw;background:radial-gradient(circle,#e7b748,transparent 70%);opacity:.18;animation:float2 30s ease-in-out infinite;}
+.blob-c{width:30vw;height:30vw;top:40%;left:55%;background:radial-gradient(circle,#9a4fd1,transparent 70%);opacity:.25;animation:float1 22s ease-in-out infinite reverse;}
+.grain{position:absolute;inset:0;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(4vw,5vw) scale(1.08)}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-3vw,-4vw) scale(1.1)}}
+
+/* ---------- layout shell ---------- */
+.deck{position:relative;z-index:1;height:100vh;overflow-y:auto;scroll-snap-type:y proximity;scroll-behavior:smooth;}
+.deck::-webkit-scrollbar{width:6px;}
+.deck::-webkit-scrollbar-thumb{background:var(--purple-500);border-radius:3px;}
+
+.slide{
+  min-height:100vh;
+  scroll-snap-align:start;
+  display:flex;
+  align-items:center;
+  position:relative;
+  padding:7.5rem 6vw 5rem;
+}
+@media (max-width:900px){.slide{padding:6.5rem 6vw 4rem;}}
+
+.slide-grid{
+  width:100%;
+  max-width:1280px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:0.92fr 1fr;
+  gap:clamp(2rem,5vw,5rem);
+  align-items:center;
+}
+.slide.flip .slide-grid{grid-template-columns:1fr 0.92fr;}
+.slide.flip .visual{order:2;}
+.slide.flip .content{order:1;}
+@media (max-width:860px){
+  .slide-grid{grid-template-columns:1fr!important;}
+  .slide.flip .visual,.slide.flip .content{order:initial!important;}
+}
+
+/* ---------- visual / image frame ---------- */
+.visual{display:flex;justify-content:center;}
+.frame{
+  position:relative;
+  padding:.6rem;
+  border-radius:var(--radius-lg);
+  background:linear-gradient(160deg,var(--glass-bg-strong),var(--glass-bg));
+  border:1px solid var(--glass-border);
+  box-shadow:0 30px 70px -20px rgba(91,46,145,.55),0 0 0 1px rgba(255,255,255,.03) inset;
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  animation:hover-float 7s ease-in-out infinite;
+  max-width:480px;
+  width:100%;
+}
+.frame img{display:block;width:100%;height:auto;border-radius:calc(var(--radius-lg) - 10px);}
+.frame .glow{position:absolute;inset:-2px;border-radius:inherit;background:linear-gradient(135deg,var(--gold-500),transparent 40%,var(--purple-500),transparent 80%);opacity:.35;filter:blur(18px);z-index:-1;}
+@keyframes hover-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ---------- content / typography ---------- */
+.content{max-width:620px;}
+.kicker{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-family:var(--font-display);font-weight:700;
+  font-size:1rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold-300);margin-bottom:1.1rem;
+}
+.kicker .num{
+  width:2.5rem;height:2.5rem;border-radius:50%;
+  border:1px solid var(--gold-500);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.05rem;color:var(--ink-100);
+  background:var(--glass-bg);
+}
+h2.title{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(1.7rem,3.1vw,2.7rem);
+  line-height:1.12;
+  margin:0 0 1rem;
+  color:var(--ink-100);
+}
+p.lead{
+  font-size:clamp(1rem,1.3vw,1.15rem);
+  line-height:1.65;
+  color:var(--ink-300);
+  margin:0 0 1.6rem;
+  max-width:46ch;
+}
+ul.bullets{list-style:none;margin:0 0 1.4rem;padding:0;display:grid;gap:.85rem;}
+ul.bullets li{
+  display:flex;gap:.8rem;align-items:flex-start;
+  font-size:clamp(.95rem,1.1vw,1.05rem);
+  line-height:1.5;color:var(--ink-100);
+}
+ul.bullets li .ic{flex:none;width:1.4rem;height:1.4rem;margin-top:.1rem;color:var(--gold-500);}
+.banner{
+  margin-top:1.6rem;
+  padding:1rem 1.3rem;
+  border-left:3px solid var(--gold-500);
+  background:var(--glass-bg);
+  border-radius:0 14px 14px 0;
+  font-size:.98rem;
+  line-height:1.55;
+  color:var(--ink-100);
+  backdrop-filter:blur(10px);
+}
+.banner b{color:var(--gold-300);font-family:var(--font-display);letter-spacing:.02em;}
+.pillrow{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.3rem;}
+.pill{
+  font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:.45rem .9rem;border-radius:999px;
+  border:1px solid var(--glass-border);background:var(--glass-bg);
+  color:var(--ink-300);
+}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:0 0 1.4rem;}
+.stat{padding:1.1rem 1.2rem;border-radius:16px;background:var(--glass-bg);border:1px solid var(--glass-border);}
+.stat .n{font-family:var(--font-display);font-size:clamp(1.5rem,2.4vw,2.1rem);color:var(--gold-300);display:block;}
+.stat .l{font-size:.85rem;color:var(--ink-300);}
+.col3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.4rem;}
+@media (max-width:760px){.col3{grid-template-columns:1fr;}}
+.col3 .card{padding:1.2rem 1.1rem;border-radius:16px;background:var(--glass-bg);border:1px solid var(--glass-border);}
+.col3 .card .ic{width:2rem;height:2rem;color:var(--gold-500);margin-bottom:.6rem;}
+.col3 .card h3{font-family:var(--font-display);font-size:1.02rem;margin:0 0 .4rem;color:var(--ink-100);letter-spacing:.03em;}
+.col3 .card p{margin:0;font-size:.88rem;color:var(--ink-300);line-height:1.5;}
+
+/* ---------- header / lang switch ---------- */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 6vw;
+  pointer-events:none;
+}
+.brand{
+  font-family:var(--font-display);font-weight:800;letter-spacing:.04em;
+  font-size:1.15rem;color:var(--ink-100);display:flex;align-items:center;gap:.5rem;
+  pointer-events:auto;
+}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--gold-500);box-shadow:0 0 10px var(--gold-500);}
+.langswitch{
+  pointer-events:auto;
+  display:flex;gap:.25rem;padding:.3rem;
+  border-radius:999px;background:rgba(12,8,21,.55);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(14px);
+}
+.langswitch button{
+  font-family:var(--font-body);font-weight:600;font-size:.82rem;letter-spacing:.05em;
+  padding:.45rem 1.05rem;border-radius:999px;border:none;background:transparent;
+  color:var(--ink-300);cursor:pointer;transition:.25s var(--ease);
+}
+.langswitch button.active{background:linear-gradient(135deg,var(--gold-300),var(--gold-700));color:#241338;box-shadow:0 4px 16px -4px rgba(231,183,72,.6);}
+
+/* ---------- side nav dots ---------- */
+.navdots{position:fixed;right:1.6rem;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:.55rem;}
+.navdots button{
+  width:9px;height:9px;border-radius:50%;border:1px solid var(--glass-border);
+  background:transparent;cursor:pointer;padding:0;transition:.3s var(--ease);
+}
+.navdots button.active{background:var(--gold-500);border-color:var(--gold-500);box-shadow:0 0 8px var(--gold-500);transform:scale(1.3);}
+@media (max-width:900px){.navdots{display:none;}}
+
+.scrollcue{position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--ink-500);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;animation:bob 2.4s ease-in-out infinite;}
+.scrollcue svg{width:1.1rem;height:1.1rem;}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
+
+/* ---------- slide 11 : partner CTA ---------- */
+.slide-final{
+  background:radial-gradient(circle at 50% 0%, rgba(91,46,145,.35), transparent 60%);
+}
+.final-card{
+  max-width:760px;margin:0 auto;text-align:center;
+  padding:clamp(2.2rem,5vw,4rem);
+  border-radius:32px;
+  background:linear-gradient(165deg,var(--glass-bg-strong),var(--glass-bg));
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(20px) saturate(140%);
+  box-shadow:0 40px 90px -30px rgba(91,46,145,.6);
+}
+.final-card .kicker{justify-content:center;width:100%;}
+.final-card h2.title{font-size:clamp(1.6rem,3.4vw,2.4rem);}
+.final-card p.t-block{font-size:clamp(1rem,1.4vw,1.18rem);line-height:1.75;color:var(--ink-300);margin:0 0 1.3rem;max-width:60ch;margin-inline:auto;}
+.final-card .signature{
+  font-family:var(--font-display);font-size:clamp(1.25rem,2vw,1.6rem);
+  color:var(--ink-100);margin:1.6rem 0 .4rem;
+}
+.final-card .signature .name{color:var(--gold-300);}
+.cta-wrap{position:relative;display:inline-flex;margin-top:1.4rem;}
+.cta-btn{
+  position:relative;z-index:2;
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-family:var(--font-body);font-weight:700;font-size:1rem;letter-spacing:.02em;
+  padding:1.05rem 2.1rem;border-radius:999px;
+  background:linear-gradient(135deg,var(--gold-300),var(--gold-700));
+  color:#241338;text-decoration:none;
+  box-shadow:0 14px 32px -10px rgba(231,183,72,.55);
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.cta-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 40px -10px rgba(231,183,72,.7);}
+.cta-btn svg{width:1.15rem;height:1.15rem;}
+.ripple{position:absolute;inset:0;border-radius:999px;border:1.5px solid var(--gold-500);animation:ripple 2.6s var(--ease) infinite;}
+.ripple.r2{animation-delay:.9s;}
+.ripple.r3{animation-delay:1.8s;}
+@keyframes ripple{
+  0%{transform:scale(1);opacity:.55;}
+  100%{transform:scale(1.9);opacity:0;}
+}
+.final-foot{margin-top:1.6rem;font-size:.82rem;color:var(--ink-500);letter-spacing:.03em;}
+
+footer.site-end{position:relative;z-index:1;text-align:center;padding:2.4rem 1rem 3rem;color:var(--ink-500);font-size:.82rem;letter-spacing:.05em;}
+
+@media (max-width:480px){
+  .cta-btn{border-radius:22px;padding:1rem 1.5rem;font-size:.92rem;text-align:center;}
+  .ripple{border-radius:22px;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .frame,.blob,.scrollcue,.ripple{animation:none!important;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-field" aria-hidden="true">
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+  <div class="grain"></div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.6 2.6L16.2 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-flask" viewBox="0 0 24 24" fill="none"><path d="M9 2h6M10 2v6.5L4.8 17a2 2 0 001.7 3h11a2 2 0 001.7-3L14 8.5V2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 14h9" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="ic-care" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M5 21c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="ic-leaf" viewBox="0 0 24 24" fill="none"><path d="M5 19c8 0 14-6 14-14-8 0-14 6-14 14z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 19c2-4 5-7 9-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="ic-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-link" viewBox="0 0 24 24" fill="none"><path d="M10 14L20 4M20 4h-6M20 4v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 13v5a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="topbar">
+  <div class="brand"><span class="dot"></span> KOVEO</div>
+  <div class="langswitch" role="group" aria-label="Тіл / Язык">
+    <button type="button" data-lang="kk" class="active">ҚАЗ</button>
+    <button type="button" data-lang="ru">РУС</button>
+  </div>
+</header>
+
+<nav class="navdots" aria-label="Слайдтар / Слайды"></nav>
+
+<main class="deck">
+
+<!-- SLIDE 1 -->
+<section class="slide" id="slide-1" data-title-kk="Кіріспе" data-title-ru="Введение">
+  <div class="slide-grid">
+    <div class="visual">
+      <div class="frame"><div class="glow"></div><img src="assets/img/slide-01.png" alt="KOVEO — ғылым негізіндегі сұлулық технологиясы" loading="lazy" width="944" height="628"></div>
+    </div>
+    <div class="content">
+      <div class="kicker"><span class="num">01</span><span class="t" data-ru="Бренд туралы">Бренд туралы</span></div>
+      <h2 class="title t" data-ru="Научно обоснованная технология красоты">Ғылым негізіндегі сұлулық технологиясы</h2>
+      <p class="lead t" data-ru="Совершенствование красоты через технологию точного ухода за кожей.">Терінің дәл күтім технологиясы арқылы сұлулықты жетілдіру.</p>
+      <div class="pillrow">
+        <span class="pill t" data-ru="ГРУППА BGI">BGI GROUP</span>
+        <span class="pill t" data-ru="KOVEO 薈文">KOVEO 薈文</span>
+        <span class="pill t" data-ru="ТОЧНЫЙ УХОД ЗА КОЖЕЙ">PRECISION SKINCARE</span>
+        <span class="pill t" data-ru="ТОЧНОЕ ПИТАНИЕ">PRECISION NUTRITION</span>
+        <span class="pill t" data-ru="ТОЧНОЕ ЗДОРОВЬЕ">PRECISION HEALTH</span>
+      </div>
+    </div>
+  </div>
+  <div class="scrollcue"><svg><use href="#ic-chevron"/></svg><span class="t" data-ru="Прокрутите">Айналдыру</span></div>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide flip" id="slide-2">
+  <div class="slide-grid">
+    <div class="visual">
+      <div class="frame"><div class="glow"></div><img src="assets/img/slide-02.png" alt="KOVEO – BGI Group пен бірге" loading="lazy" width="660" height="632"></div>
+    </div>
+    <div class="content">
+      <div class="kicker"><span class="num">02</span><span class="t" data-ru="Стратегиялық серіктестік" data-default="1">Стратегиялық серіктестік</span></div>
+      <h2 class="title t" data-ru="KOVEO — вместе с BGI Group">KOVEO – BGI Group пен бірге</h2>
+      <p class="lead t" data-ru="С 2020 года — стратегический партнёр.">2020 жылдан бастап – стратегиялық серіктес.</p>
+      <div class="col3">
+        <div class="card"><svg class="ic"><use href="#ic-flask"/></svg><h3 class="t" data-ru="Наука и применение">Ғылым және қолдану</h3><p class="t" data-ru="Научные исследования и их практическое применение">Ғылыми зерттеу және қолдану</p></div>
+        <div class="card"><svg class="ic"><use href="#ic-leaf"/></svg><h3 class="t" data-ru="Биотехнологии">Биотехнология</h3><p class="t" data-ru="Производство на основе биотехнологий">Биотехнология негізіндегі өндіру</p></div>
+        <div class="card"><svg class="ic"><use href="#ic-check"/></svg><h3 class="t" data-ru="Стандарты">Стандарттар</h3><p class="t" data-ru="Международные стандарты и сертификация">Халықаралық көрсеткіш және құжаттама</p></div>
+      </div>
+      <div class="banner"><b class="t" data-ru="МИССИЯ BGI:">BGI МИССИЯСЫ:</b> <span class="t" data-ru="«Повышение качества жизни человечества через геномные технологии»">«Геномдық технология арқылы адамзаттың өмір сапасын арттыру»</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide" id="slide-3">
+  <div class="slide-grid">
+    <div class="visual">
+      <div class="frame"><div class="glow"></div><img src="assets/img/slide-03.png" alt="BGI Group – әлемдік деңгейдегі ғылыми алыпауыт" loading="lazy" width="1152" height="813"></div>
+    </div>
+    <div class="content">
+      <div class="kicker"><span class="num">03</span><span class="t" data-ru="Аналық компания">Аналық компания</span></div>
+      <h2 class="title t" data-ru="BGI Group — научный гигант мирового уровня">BGI Group – әлемдік деңгейдегі ғылыми алыпауыт</h2>
+      <ul class="bullets">
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Основана в 1999 году">1999 жылы құрылған</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Один из ведущих мировых институтов в области наук о жизни">Өмір туралы ғылымдар саласындағы әлемдегі жетекші ұйым</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Научные исследования и партнёрства в более чем 100 странах">100+ елде ғылыми зерттеу және серіктестік</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Более 100 000 научных сотрудников">100 000+ ғылыми қызметкер</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="China National GeneBank (CNGB) — национальный генный банк">China National GeneBank (CNGB) – ұлттық деңгейдегі ген банкі</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Основоположник направлений Precision Nutrition и Precision Health">Precision Nutrition және Precision Health бағыттарының негізін қалаушы</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="slide flip" id="slide-4">
+  <div class="slide-grid">
+    <div class="visual">
+      <div class="frame"><div class="glow"></div><img src="assets/img/slide-04.png" alt="KOVEO даму тарихы" loading="lazy" width="1191" height="657"></div>
+    </div>
+    <div class="content">
+      <div class="kicker"><span class="num">04</span><span class="t" data-ru="Хроника">Хроника</span></div>
+      <h2 class="title t" data-ru="История развития KOVEO">KOVEO даму тарихы</h2>
+      <ul class="bullets">
+        <li><svg class="ic"><use href="#ic-check"/></svg><span><b>2003 —</b> <span class="t" data-ru="BGI участвует в первом выявлении вируса SARS">BGI алғашқы SARS вирусын анықтауға қатысады</span></span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span><b>2011 —</b> <span class="t" data-ru="Участие в создании China National GeneBank (CNGB)">China National GeneBank (CNGB) құрылысына қатысады</span></span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span><b>2017 —</b> <span class="t" data-ru="Shenzhen BGI Genomics выходит на биржевой листинг">Shenzhen BGI Genomics листингке шығады</span></span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span><b>2020 —</b> <span class="t" data-ru="Официальный запуск бренда KOVEO и стратегическое партнёрство с BGI Group">KOVEO бренді ресми іске қосылып, BGI Group-пен стратегиялық серіктестік орнайды</span></span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span><b>2023 —</b> <span class="t" data-ru="500+ филиалов, 100 000+ партнёрских точек">500+ филиал, 100 000+ серіктес нүкте</span></span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span><b>2024 —</b> <span class="t" data-ru="Активное расширение на международном рынке, запуск новых инновационных проектов">Халықаралық нарықта белсенді кеңею, инновациялық жобаларды іске асыру жалғасуда</span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide" id="slide-5">
+  <div class="slide-grid">
+    <div class="visual">
+      <div class="frame"><div class="glow"></div><img src="assets/img/slide-05.png" alt="KOVEO философиясы" loading="lazy" width="1124" height="872"></div>
+    </div>
+    <div class="content">
+      <div class="kicker"><span class="num">05</span><span class="t" data-ru="Ценности бренда">Брендтің құндылықтары</span></div>
+      <h2 class="title t" data-ru="Философия KOVEO">KOVEO философиясы</h2>
+      <div class="col3">
+        <div class="card"><svg class="ic"><use href="#ic-flask"/></svg><h3 class="t" data-ru="Наука">ҒЫЛЫМ</h3><p class="t" data-ru="Продукты на основе достижений генетических технологий и биотехнологий">Гендік технология мен биотехнология жетістіктеріне негізделген өнімдер</p></div>
+        <div class="card"><svg class="ic"><use href="#ic-care"/></svg><h3 class="t" data-ru="Точный уход">ДӘЛ КҮТІМ</h3><p class="t" data-ru="Персонализированные решения по уходу за кожей каждого человека">Әр адамның терісіне жеке (персоналды) күтім жасайтын шешімдер</p></div>
+        <div class="card"><svg class="ic"><use href="#ic-leaf"/></svg><h3 class="t" data-ru="Красота и здоровье">СҰЛУЛЫҚ ЖӘНЕ ДЕНСАУЛЫҚ</h3><p class="t" data-ru="Повышение качества жизни через улучшение красоты кожи и общего здоровья">Тері сұлулығы мен жалпы денсаулықты жақсарту арқылы өмір сапасын көтеру</p></div>
+      </div>
+      <div class="banner"><b class="t" data-ru="МИССИЯ KOVEO:">KOVEO МИССИЯСЫ:</b> <span class="t" data-ru="Вести к красоте через технологию точного ухода за кожей и повышать качество жизни людей">Теріні дәл күтудің технологиясы арқылы сұлулыққа жетелеу және адамдардың өмір сапасын арттыру</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="slide flip" id="slide-6">
+  <div class="slide-grid">
+    <div class="visual">
+      <div class="frame"><div class="glow"></div><img src="assets/img/slide-06.png" alt="KOVEO не ұсынады?" loading="lazy" width="1173" height="663"></div>
+    </div>
+    <div class="content">
+      <div class="kicker"><span class="num">06</span><span class="t" data-ru="Экосистема">Экожүйе</span></div>
+      <h2 class="title t" data-ru="Что предлагает KOVEO?">KOVEO не ұсынады?</h2>
+      <ul class="bullets">
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Инновационные аппаратные технологии (Water Light)">Инновациялық аппаратты технологиялар (су жарығы Water Light)</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Профессиональная косметика на научной основе">Ғылыми негізделген кәсіби косметикалық өнімдер</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Профессиональное обучение для косметологов">Косметологтарға арналған кәсіби оқыту</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Система привлечения клиентов и ведения бизнеса">Клиент тарту және бизнес жүргізу жүйесі</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Маркетинг, поддержка и наставничество">Маркетинг, қолдау және менторлық жүйе</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Качество и сервис международного уровня">Халықаралық деңгейдегі сапа және сервис</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7 -->
+<section class="slide" id="slide-7">
+  <div class="slide-grid">
+    <div class="visual">
+      <div class="frame"><div class="glow"></div><img src="assets/img/slide-07.png" alt="Негізгі өнімдер мен жобалар" loading="lazy" width="1128" height="856"></div>
+    </div>
+    <div class="content">
+      <div class="kicker"><span class="num">07</span><span class="t" data-ru="Продуктовая линейка">Өнім желісі</span></div>
+      <h2 class="title t" data-ru="Основные продукты и проекты">Негізгі өнімдер мен жобалар</h2>
+      <div class="col3">
+        <div class="card"><h3 class="t" data-ru="Технология Water Light">WATER LIGHT ТЕХНОЛОГИЯСЫ</h3><p class="t" data-ru="Аппаратное введение ампул в кожу">Аппаратпен ампулаларды теріге енгізу</p></div>
+        <div class="card"><h3 class="t" data-ru="Профессиональная косметика">КӘСІБИ КОСМЕТИКАЛЫҚ ӨНІМДЕР</h3><p class="t" data-ru="Высокоэффективные продукты с научными формулами">Ғылыми формулалары бар жоғары тиімді өнімдер</p></div>
+        <div class="card"><h3 class="t" data-ru="Пробиотики для женщин">ӘЙЕЛДЕРГЕ АРНАЛҒАН ПРОБИОТИКТЕР</h3><p class="t" data-ru="Поддержка интимного здоровья и иммунитета">Интимдік денсаулық пен иммунитетті қолдау</p></div>
+      </div>
+      <div class="card" style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:16px;padding:1.2rem 1.1rem;margin-bottom:1.4rem;">
+        <h3 class="t" data-ru="Направление HPV" style="font-family:var(--font-display);margin:0 0 .4rem;color:var(--ink-100);">HPV БАГЫТЫ</h3>
+        <p class="t" data-ru="Программы профилактики и поддержки против ВПЧ-инфекции" style="margin:0;color:var(--ink-300);">HPV инфекциясынан алдын алу және қолдау бағдарламалары</p>
+      </div>
+      <div class="banner"><span class="t" data-ru="Точный уход – точный результат">Дәлме-дәл күтім – дәл нәтиже</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8 -->
+<section class="slide flip" id="slide-8">
+  <div class="slide-grid">
+    <div class="visual">
+      <div class="frame"><div class="glow"></div><img src="assets/img/slide-08.png" alt="Ғылыми зерттеу және өндіріс" loading="lazy" width="981" height="741"></div>
+    </div>
+    <div class="content">
+      <div class="kicker"><span class="num">08</span><span class="t" data-ru="Производство">Өндіріс</span></div>
+      <h2 class="title t" data-ru="Научные исследования и производство">Ғылыми зерттеу және өндіріс</h2>
+      <ul class="bullets">
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Научная поддержка лабораторий BGI">BGI зертханаларының ғылыми қолдауы</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Производство по международным стандартам GMP">Халықаралық GMP стандарттары бойынша өндіріледі</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Многоступенчатый контроль безопасности, эффективности и качества">Қауіпсіздік, тиімділік және сапаға көп сатылы бақылау</span></li>
+      </ul>
+      <div class="banner"><span class="t" data-ru="Наука + Технологии + Качество = Результат KOVEO">Ғылым + Технология + Сапа = KOVEO нәтижесі</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9 -->
+<section class="slide" id="slide-9">
+  <div class="slide-grid">
+    <div class="visual">
+      <div class="frame"><div class="glow"></div><img src="assets/img/slide-09.png" alt="KOVEO – бизнес пен мүмкіндік" loading="lazy" width="1108" height="984"></div>
+    </div>
+    <div class="content">
+      <div class="kicker"><span class="num">09</span><span class="t" data-ru="Масштаб">Ауқым</span></div>
+      <h2 class="title t" data-ru="KOVEO — бизнес и возможности">KOVEO – бизнес пен мүмкіндік</h2>
+      <div class="stat-grid">
+        <div class="stat"><span class="n">500+</span><span class="l t" data-ru="филиалов">филиал</span></div>
+        <div class="stat"><span class="n">100 000+</span><span class="l t" data-ru="партнёрских точек">серіктес нүкте</span></div>
+        <div class="stat"><span class="n">14</span><span class="l t" data-ru="стран активной работы">елде белсенді жұмыс</span></div>
+        <div class="stat"><span class="n t" data-ru="Тысячи">Мыңдаған</span><span class="l t" data-ru="присоединившихся косметологов и предпринимателей">қосылған косметолог және кәсіпкер</span></div>
+      </div>
+      <div class="banner"><span class="t" data-ru="KOVEO открывает путь к успешному бизнесу и стабильному доходу">KOVEO – табысты бизнес пен тұрақты табысқа жол ашады</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10 -->
+<section class="slide flip" id="slide-10">
+  <div class="slide-grid">
+    <div class="visual">
+      <div class="frame"><div class="glow"></div><img src="assets/img/slide-10.png" alt="KOVEO – бірге дамуға шақырамыз" loading="lazy" width="903" height="741"></div>
+    </div>
+    <div class="content">
+      <div class="kicker"><span class="num">10</span><span class="t" data-ru="Приглашение">Шақыру</span></div>
+      <h2 class="title t" data-ru="KOVEO — приглашаем к совместному развитию!">KOVEO – бірге дамуға шақырамыз!</h2>
+      <ul class="bullets">
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Технология на основе науки">Ғылымға негізделген технология</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Точный, выверенный уход">Дәлме-дәл күтім</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Надёжное партнёрство">Сенімді серіктестік</span></li>
+        <li><svg class="ic"><use href="#ic-check"/></svg><span class="t" data-ru="Успешное будущее">Табысты болашақ</span></li>
+      </ul>
+      <div class="banner"><span class="t" data-ru="KOVEO — новая технология, новые возможности, новый успех!">KOVEO – жаңа технология, жаңа мүмкіндік, жаңа табыс!</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11 — PARTNER CTA -->
+<section class="slide slide-final" id="slide-11">
+  <div class="final-card">
+    <div class="kicker"><span class="num">11</span><span class="t" data-ru="Партнёрство">Серіктестікке қосылу</span></div>
+    <h2 class="title t" data-ru="Станьте партнёром KOVEO в Казахстане">KOVEO-ның Қазақстандағы серіктесі болыңыз</h2>
+
+    <p class="t-block t" data-ru="Это не сетевая компания — она развивается через традиционную партнёрскую сеть. У нас есть сертификаты международного уровня.">Бұл сетевой компания емес, дәстүрлі серіктестік желісі арқылы дамып келе жатыр. Халықаралық деңгейдегі сертификаттары бар.</p>
+
+    <p class="t-block t" data-ru="Результат продукции очень высокий. Став партнёром, вы можете увеличить свой текущий доход минимум в 3 раза.">Өнім нәтижесі өте жоғары. Серіктес болу арқылы қазіргі табысыңызды кемі 3 есе көтере аласыз.</p>
+
+    <p class="t-block t" data-ru="Чтобы получить полную информацию, перейдите на мою личную страницу ниже.">Толық ақпарат алу үшін төмендегі менің жеке парақшама өтіңіз.</p>
+
+    <p class="signature"><span class="t" data-ru="Меня зовут">Менің есімім</span> <span class="name">Оразбай Жәмила</span></p>
+
+    <div class="cta-wrap">
+      <span class="ripple"></span><span class="ripple r2"></span><span class="ripple r3"></span>
+      <a class="cta-btn" href="https://zhamila.taplink.kz" target="_blank" rel="noopener noreferrer">
+        <svg><use href="#ic-link"/></svg>
+        <span class="t" data-ru="Партнёр компании в Казахстане">Компанияның Қазақстандағы серіктесі</span>
+      </a>
+    </div>
+    <div class="final-foot">zhamila.taplink.kz</div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-end">
+  <span class="t" data-ru="© KOVEO × BGI GROUP — научно обоснованная технология красоты">© KOVEO × BGI GROUP — ғылым негізіндегі сұлулық технологиясы</span>
+</footer>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'koveo-lang';
+  var root = document.documentElement;
+  var btns = document.querySelectorAll('.langswitch button');
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('.t'));
+
+  function applyLang(lang){
+    nodes.forEach(function(el){
+      if(!el.dataset.kk){ el.dataset.kk = el.textContent; }
+      var ru = el.dataset.ru;
+      el.textContent = (lang === 'ru' && ru) ? ru : el.dataset.kk;
+    });
+    btns.forEach(function(b){ b.classList.toggle('active', b.dataset.lang === lang); });
+    root.setAttribute('lang', lang);
+    try{ localStorage.setItem(STORAGE_KEY, lang); }catch(e){}
+  }
+
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ applyLang(b.dataset.lang); });
+  });
+
+  var saved = 'kk';
+  try{ saved = localStorage.getItem(STORAGE_KEY) || 'kk'; }catch(e){}
+  applyLang(saved);
+
+  // side nav dots
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var nav = document.querySelector('.navdots');
+  slides.forEach(function(s, i){
+    var b = document.createElement('button');
+    b.setAttribute('aria-label', 'Slide ' + (i+1));
+    b.addEventListener('click', function(){ s.scrollIntoView({behavior:'smooth'}); });
+    nav.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(nav.querySelectorAll('button'));
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var idx = slides.indexOf(entry.target);
+        dots.forEach(function(d,i){ d.classList.toggle('active', i === idx); });
+      }
+    });
+  }, {root: document.querySelector('.deck'), threshold: 0.5});
+  slides.forEach(function(s){ observer.observe(s); });
+})();
+</script>
+</body>
+</html>
